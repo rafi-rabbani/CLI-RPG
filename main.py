@@ -1,3 +1,4 @@
-import config
+from models.creatures import Player, Monster
 
-print(config.PLAYER["MAX_HP"])
+player = Player("Santaro")
+print(player)

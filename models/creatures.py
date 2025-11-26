@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from items import Inventory
-from .. import config
+from .items import Inventory
+import config
 
 class Creature(ABC):
     def __init__(self, name, max_hp, damage):
@@ -54,7 +54,7 @@ class Player(Creature):
             if self.health == 0:
                 print(f"{self.name} is DIE")
             else:
-                print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
+                print(f"{self.name} takes {damage} damage")
 
     def collect_item(self, item):
         self.inventory.add_item(item)
