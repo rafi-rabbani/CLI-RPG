@@ -60,3 +60,39 @@ class Player(Creature):
     def view_item(self):
         self.inventory.list_item()
 
+class Monster(Creature):
+    def __init__(self, name, max_hp, damage):
+        super().__init__(name, max_hp, damage)
+
+    def attack(self, target):
+        print(f"{self.name} attacks {target} with {self.damage} damage")
+        target.defend(self.damage)
+
+    def defend(self, damage):
+         if damage >= 0:
+            new_hp = self.health - damage
+
+            if new_hp < 0:
+                self.health = new_hp
+                print(f"{self.name} is DIE")
+            else:
+                print(f"{self.name} takes {damage} damage\nHP\t: ({self.health}/{self.max_hp})")
+    
+    @classmethod
+    def dragon(cls):
+        return cls(tuple(config.MONSTERS["DRAGON"]))
+
+    @classmethod
+    def goblin(cls):
+        return cls(tuple(config.MONSTERS["GOBLIN"]))
+
+    @classmethod
+    def skeleton(cls):
+        return cls(tuple(config.MONSTERS["SKELETON"]))
+
+    @classmethod
+    def minotaur(cls):
+        return cls(tuple(config.MONSTERS["MINOTAUR"]))
+
+
+
