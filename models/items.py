@@ -1,11 +1,10 @@
 class item:
-    def __init__(self, name, tier, description):
+    def __init__(self, name, description):
         self.name = name
-        self.tier = tier
         self.description = description
 
     def __str__(self):
-        return f"{(self.name).upper()}\nTier\t\t: {self.tier}\nDeskription\t: {self.description}"
+        return f"{(self.name).upper()}\nDeskription\t: {self.description}"
 
 class Inventory:
     def __init__(self):
@@ -17,7 +16,7 @@ class Inventory:
         else:
             print("New Item is not defined")
 
-    def view_item(self):
+    def list_item(self):
         if self.list:
             for i in self.list:
                 print(i)
