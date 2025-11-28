@@ -1,2 +1,11 @@
+from view.view import init
+
 class GameEngine:
-    pass
+
+    def start_game():
+        while True:
+            init()
+            
+            
+            
+        
