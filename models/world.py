@@ -23,8 +23,8 @@ class World:
 
         orthodox.connects("north", ice)
         orthodox.connects("south", demonic)
-        orthodox.connects("west", cloud)
-        orthodox.connects("east", unorthodox)
+        orthodox.connects("west", unorthodox)
+        orthodox.connects("east", cloud)
 
         cloud.connects("west", orthodox)
         unorthodox.connects("east", orthodox)
