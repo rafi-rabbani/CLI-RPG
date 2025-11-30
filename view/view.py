@@ -28,16 +28,17 @@ class ConsoleView:
     def show_loading_screen(self):
         self.clear_screen()
 
-        print('\n'*16)
+        print('\n'*20)
         self.typing_slow("W E L C O M E   T O   M U R I M   W O R L D")
         print()
         self.typing_slow('by   F I Z Z')
 
         time.sleep(0.75)
 
-        print("\n"*4)
+        print("\n"*15)
 
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
+        
         self.clear_screen()
 
