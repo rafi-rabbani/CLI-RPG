@@ -101,3 +101,19 @@ class ConsoleView:
 
         text_enter = 'Press [ENTER] to Next....'
         input(' ' * self.padding_center(text_enter) + text_enter)
+                
+    def show_start_screen(self, name):
+        self.clear_screen()
+
+        print('\n'*20)
+        self.typing_slow(self.space_text(name).upper())
+        print()
+        self.typing_slow(self.space_text("your journey starts here").upper())
+
+        time.sleep(1)
+
+        print("\n"*15)
+
+        text_enter = 'Press [ENTER] to Start....'
+        input(' ' * self.padding_center(text_enter) + text_enter)
+        
