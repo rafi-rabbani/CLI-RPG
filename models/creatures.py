@@ -40,8 +40,8 @@ class Creature(ABC):
             return f"{self.name} is DIE"
 
 class Player(Creature):
-    def __init__(self, name):
-        super().__init__(name, config.PLAYER["MAX_HP"], config.PLAYER["BASE_DAMAGE"])
+    def __init__(self, name, max_hp, damage):
+        super().__init__(name, max_hp, damage)
         self.inventory = Inventory()
 
     def attack(self, target):
