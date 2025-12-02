@@ -116,4 +116,17 @@ class ConsoleView:
 
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
-        
+
+    def show_current_room(self, room):
+        self.clear_screen()
+
+        print('\n'*20)
+        self.typing_slow(self.space_text(f"location : {room.name}").upper())
+        print()
+        self.typing_slow(self.space_text(f"description : {room.description}").upper())
+
+        print("\n"*15)
+
+        text_enter = 'Press [ENTER] to Start....'
+        input(' ' * self.padding_center(text_enter) + text_enter)
+
