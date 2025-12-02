@@ -19,6 +19,10 @@ class GameEngine:
         "EXIT\t\t: Use 'EXIT' or 'QUIT' to stop the game."
         ]
         return rules
+    
+    def roles(self):
+        role = PLAYER.keys()
+        return role
 
     def start_game(self):
         self.world.generate_world()
@@ -26,6 +30,8 @@ class GameEngine:
         self.view.show_welcome_screen()
 
         self.player_name = self.view.get_player_name()
+        self.player_role = self.view.get_player_role(self.roles())
+        print(self.player_role)
 
         self.view.show_rules(self.rules_game())
 
