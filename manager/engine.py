@@ -35,6 +35,14 @@ class GameEngine:
 
         self.view.show_rules(self.rules_game())
 
+        match self.player_role:
+            case "fighter":
+                self.player = Player.fighter(self.player_name)
+            case "archer":
+                self.player = Player.archer(self.player_name)
+            case "tank":
+                self.player = Player.tank(self.player_name)
+
 
 
             
