@@ -1,5 +1,7 @@
-from view.view import ConsoleView
-from models.world import World
+from view import ConsoleView
+from models import World
+from models import Player
+from config import PLAYER
 
 class GameEngine:
     def __init__(self):
@@ -23,10 +25,11 @@ class GameEngine:
 
         self.view.show_welcome_screen()
 
+        self.player_name = self.view.get_player_name()
+
         self.view.show_rules(self.rules_game())
 
-        
-        self.view.get_new_player()
+
 
             
             
