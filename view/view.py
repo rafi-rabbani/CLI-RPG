@@ -1,4 +1,3 @@
-from models import creatures
 import os
 import time
 import shutil
@@ -14,6 +13,8 @@ class ConsoleView:
     def padding_center(self, text):
         padding = (self.width_console - len(text)) / 2
         return int(padding)
+    
+    def space_text(self, text): return " ".join(text)
 
     def typing_slow(self, text, speed=0.05, center=True):
         if center:
@@ -28,25 +29,27 @@ class ConsoleView:
     def show_welcome_screen(self):
         self.clear_screen()
 
-        print('\n'*20)
-        self.typing_slow("W E L C O M E   T O   M U R I M   W O R L D")
-        print()
-        self.typing_slow('by   F I Z Z')
+        print('\n'*17)
+        self.typing_slow(self.space_text("welcome to").upper())
+        print('\n')
+        self.typing_slow(self.space_text("the world of murim").upper())
+        print('\n')
+        self.typing_slow('by  Fizz')
 
         time.sleep(1)
 
-        print("\n"*15)
+        print("\n"*14)
 
         text_enter = 'Press [ENTER] to Start....'
         input(' ' * self.padding_center(text_enter) + text_enter)
-
 
     def show_rules(self, rules):
         self.clear_screen()
 
         print('\n'*8)
-        self.typing_slow("t h e   r u l e s\n".upper())
-        self.typing_slow("o f   t h e   w o r l d   o f   m u r i m".upper())
+        self.typing_slow(self.space_text("the rules").upper())
+        print()
+        self.typing_slow(self.space_text("of the world of murim").upper())
         print('\n'*3)
         
         for index, rule in enumerate(rules):
