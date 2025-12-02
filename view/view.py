@@ -56,6 +56,32 @@ class ConsoleView:
 
         return player_name if player_name.strip() != "" else "Nameless Wanderer"
 
+    def get_player_role(self, roles):
+        self.clear_screen()
+
+        print('\n'*15)
+        self.typing_slow(self.space_text("choose your destiny").upper())
+        print('\n'*2)
+
+        for role in roles:
+            self.typing_slow(f">>>           {self.space_text(role)}           <<<".upper(), 0.01)
+            print('\n')
+
+        print("\n"*2)
+        print(" " * self.padding_center("( 1 - 3 )") + "( 1 - 3 )\n")
+
+        time.sleep(1)
+
+        role = input(" " * self.padding_center(" ") + "")
+
+        while(True):
+            if role.strip() in ['1', '2', '3']:
+                return list(roles)[(int(role)) - 1].lower()
+            else:
+                print()
+                print(" " * self.padding_center("( 1 - 3 )") + "( 1 - 3 )\n")
+                role = input(' ' * self.padding_center(" ") + "")
+
     def show_rules(self, rules):
         self.clear_screen()
 
