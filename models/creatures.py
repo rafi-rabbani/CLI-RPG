@@ -43,6 +43,7 @@ class Player(Creature):
     def __init__(self, name, max_hp, damage):
         super().__init__(name, max_hp, damage)
         self.inventory = Inventory()
+        self.current_room = None
 
     def attack(self, target):
         target.take_damage(self.damage)
