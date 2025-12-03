@@ -177,3 +177,18 @@ class ConsoleView:
     def get_player_command(self): return input("\n>>> ").strip().lower()
     
     def show_message(self, message): print(f"\n{message}")
+    def show_exit_screen(self, name):
+        self.clear_screen()
+
+        print('\n'*20)
+        self.typing_slow(self.space_text(name).upper())
+        print()
+        self.typing_slow(self.space_text("you have left the murim world").upper())
+
+        time.sleep(1)
+
+        print("\n"*15)
+
+        text_enter = 'Press [ENTER] to Start....'
+        input(' ' * self.padding_center(text_enter) + text_enter)
+
