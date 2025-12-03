@@ -33,7 +33,6 @@ class GameEngine:
 
         self.player_name = self.view.get_player_name()
         self.player_role = self.view.get_player_role(self.roles())
-        print(self.player_role)
 
         self.view.show_rules(self.rules_game())
         self.view.show_start_screen(self.player_name)
