@@ -136,7 +136,7 @@ class ConsoleView:
         items = []
 
         if not inventory.list_item():
-            return "Empty"
+            return "empty"
         
         for item in inventory.list_item():
             items.append(item.name.upper())
