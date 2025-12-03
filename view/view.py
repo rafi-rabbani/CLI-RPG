@@ -161,11 +161,12 @@ class ConsoleView:
         print("\nNot sure what to do?\n'menu' to see what you can do")
 
     def show_menu(self):
-        print(
-            "\n1. 'go (north/south/east/west)' to switch your location"
+        return (
+            "1. 'go (north/south/east/west)' to switch your location"
             "\n2. 'take (item name)' to collect an item"
             "\n3. 'inventory' to view your detail collected items"
             "\n4. 'look' to see what's at this location"
+            "\n5. 'exit' to get out of the murim world"
         )
 
     def get_player_command(self): return input("\n>>> ").strip().lower()
