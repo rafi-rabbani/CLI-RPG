@@ -120,10 +120,12 @@ class ConsoleView:
     def show_current_room(self, room):
         self.clear_screen()
 
-        print('\n'*20)
-        self.typing_slow(self.space_text(f"location : {room.name}").upper())
+        print('\n'*16)
+        self.typing_slow(self.space_text(f"location:").upper())
+        print('\n\n')
+        self.typing_slow(self.space_text(f"{room.name}").upper())
         print()
-        self.typing_slow(self.space_text(f"description : {room.description}").upper())
+        self.typing_slow(self.space_text(f"{room.description}").upper())
 
         print("\n"*15)
 
