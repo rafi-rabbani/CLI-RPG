@@ -166,5 +166,4 @@ class ConsoleView:
 
     def get_player_command(self): return input("\n>>> ").strip().lower()
     
-    def show_message(self, message):
-        print(f"\n{message}")
+    def show_message(self, message): print(f"\n{message}")
