@@ -49,7 +49,15 @@ class GameEngine:
 
 
 
-            
-            
-            
+    def move_player(self, direction):
+        current_room = self.player.current_room
+
+        if direction in current_room.exits:
+            next_room = current_room.exits[direction]
+
+            self.player.current_room = next_room
+            # self.view.show_current_room(next_room)
+            return f"you have moved to {next_room.name}"
+        else:
+            return "you can't go that away"
         
