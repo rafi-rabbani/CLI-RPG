@@ -47,6 +47,10 @@ class GameEngine:
             case "tank":
                 self.player = Player.tank(self.player_name)
 
+        self.player.current_room = self.world.starting_room
+
+        self.loop_game()
+
     def loop_game(self):
         last_message = ''
         command = ''
