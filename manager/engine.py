@@ -47,7 +47,33 @@ class GameEngine:
             case "tank":
                 self.player = Player.tank(self.player_name)
 
+    def process_command(self, command):
+        word = command.split()
+        action = word[0]
 
+        if action == 'menu':
+            return self.view.show_menu()
+
+        elif action == 'go':
+            if len(command) <= 2:
+                return "go where? (north, south, east, west)"
+            
+            direction = word[1]
+            return self.move_player(direction)
+        
+        elif action == 'inventory':
+            return self.view.show_inventory(self.player.inventory)
+        
+        elif action == 'look':
+            return self.view.show_around()
+        
+        elif action == 'take':
+            return self.view.show_take_item(self.player.current_room.items)
+
+        elif action == 'exit':
+            return self.view.show_exit_screen(self.player_name)
+        
+        return 'unknow command'
 
     def move_player(self, direction):
         current_room = self.player.current_room
