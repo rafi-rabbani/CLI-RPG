@@ -8,17 +8,17 @@ class Item:
 
 class Inventory:
     def __init__(self):
-        self.list = []
+        self.item_list = []
 
     def add_item(self, new_item):
         if isinstance(new_item, Item):
-            self.list.append(new_item)
+            self.item_list.append(new_item)
         else:
             return False
 
     def list_item(self):
-        if self.list:
-            return self.list
+        if self.item_list:
+            return self.item_list
         else:
             return False
 
