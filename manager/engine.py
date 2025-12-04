@@ -1,6 +1,5 @@
 from view import ConsoleView
-from models import World, Room
-from models import Player
+from models import World, Item, Player, Monster
 from config import PLAYER
 
 class GameEngine:
