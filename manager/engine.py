@@ -24,6 +24,50 @@ class GameEngine:
     def roles(self):
         role = PLAYER.keys()
         return role
+    
+    def populate_world(self):
+        cloud = self.world.starting_room
+        orthodox = self.world.rooms["center"]
+        ice = self.world.rooms["north"]
+        unorthodox = self.world.rooms["west"]
+        demonic = self.world.rooms["south"]
+
+        goblin = Monster.goblin()
+        skeleton = Monster.skeleton()
+        minotaur = Monster.minotaur()
+        dragon = Monster.dragon()
+
+        orthodox.add_monster(goblin)
+        ice.add_monster(skeleton)
+        unorthodox.add_monster(minotaur)
+        demonic.add_monster(dragon)
+
+        orthodox_key    = Item("Orthodox Key"    , f"the key used to open the location of {orthodox.name}")
+        ice_key         = Item("Ice Key"         , f"the key used to open the location of {ice.name}")
+        unorthodox_key  = Item("Unorthodox Key"  , f"the key used to open the location of {unorthodox.name}")
+        demonic_key     = Item("Demonic Key"     , f"the key used to open the location of {demonic.name}")
+
+        cloud.add_item(orthodox_key)
+        orthodox.add_item(ice_key)
+        ice.add_item(unorthodox_key)
+        unorthodox.add_item(demonic_key)
+
+        sword = Item("Worn Iron Sword", "A basic iron sword, showing signs of wear from countless battles. It's a reliable weapon for any adventurer.")
+        saber = Item("Jade Green Saber", "A finely crafted saber with a jade green blade, known for its sharpness and elegance.")
+        dagger = Item("Frostbone Dagger", "A dagger forged from the bones of ice creatures, it emanates a chilling aura that can freeze anything it touches.")
+        greatsword = Item("Bloodthirsty Greatsword", "A massive greatsword that thirsts for the blood of its enemies, radiating a menacing aura.")
+        scythe = Item("Demon God's Scythe", "The legendary weapon of the First Heavenly Demon. It radiates an overwhelming aura of dominance. Holding it makes you feel like the absolute ruler of the martial world.")
+
+        cloud.add_item(sword)
+        orthodox.add_item(saber)
+        ice.add_item(dagger)
+        unorthodox.add_item(greatsword)
+        demonic.add_item(scythe)
+
+        cloud.locked_connects("west", orthodox_key.name)
+        orthodox.locked_connects("north", ice_key.name)
+        orthodox.locked_connects("west", unorthodox_key.name)
+        orthodox.locked_connects("south", demonic_key.name)
 
     def start_game(self):
         self.world.generate_world()
