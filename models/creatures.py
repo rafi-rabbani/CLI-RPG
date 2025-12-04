@@ -37,7 +37,7 @@ class Creature(ABC):
         if self.health > 0:
             return f"Name\t\t: {self.name.upper()}\n\nHP\t\t: ({self.health}/{self.max_hp})\n\nDamage\t\t: {self.damage}"
         else:
-            return f"{self.name} is DIE"
+            return f"{self.name} is DEAD"
 
 class Player(Creature):
     def __init__(self, name, max_hp, damage):
@@ -53,7 +53,7 @@ class Player(Creature):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
-                return f"{self.name} is DIE"
+                return f"{self.name} is DEAD"
             else:
                 return f"{self.name} takes {damage} damage"
 
@@ -91,7 +91,7 @@ class Monster(Creature):
         if damage >= 0:
             self.health = self.health - damage
             if self.health == 0:
-                return f"{self.name} is DIE"
+                return f"{self.name} is DEAD"
             else:
                 return f"{self.name} takes {damage} damage"
     
