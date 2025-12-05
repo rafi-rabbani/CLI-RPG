@@ -173,10 +173,12 @@ class ConsoleView:
     def show_message(self, message): print(f"\n{message}")
 
     def show_around(self, room):
-        pass
-
-    def show_take_item(self, items):
-        pass
+        return (
+            f"this is {room.name}, {room.description}"
+            f"\n\n[items   ] : {room.items}"
+            f"\n[monsters] : {room.monsters}"
+            f"\n[exits   ] : [{" ,".join(list(room.exits.keys()))}]"
+        )
 
     def show_exit_screen(self, name):
         self.clear_screen()
