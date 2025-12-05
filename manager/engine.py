@@ -142,9 +142,21 @@ class GameEngine:
         if direction in current_room.exits:
             next_room = current_room.exits[direction]
 
-            self.player.current_room = next_room
-            # self.view.show_current_room(next_room)
-            return f"you have moved to {next_room.name}"
+            opened, item = self.locked_room(direction)
+
+            if opened is True:
+                self.player.current_room = next_room
+                self.view.show_current_room(next_room)
+                return f"you successfully opened location of {next_room.name} using {item.name}"
+
+            elif opened is False:
+                return "this location is still locked"
+
+            elif opened is None:
+                self.player.current_room = next_room
+                self.view.show_current_room(next_room)
+                return f"you have moved to {next_room.name}"
+
         else:
             return "you can't go that away"
         
