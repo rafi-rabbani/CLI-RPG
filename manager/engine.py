@@ -83,12 +83,9 @@ class GameEngine:
         self.view.show_current_room(self.world.starting_room)
 
         match self.player_role:
-            case "fighter":
-                self.player = Player.fighter(self.player_name)
-            case "archer":
-                self.player = Player.archer(self.player_name)
-            case "tank":
-                self.player = Player.tank(self.player_name)
+            case "fighter": self.player = Player.fighter(self.player_name)
+            case "archer" : self.player = Player.archer(self.player_name)
+            case "tank"   : self.player = Player.tank(self.player_name)
 
         self.player.current_room = self.world.starting_room
 
