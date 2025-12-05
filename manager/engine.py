@@ -112,29 +112,19 @@ class GameEngine:
         word = command.split()
         action = word[0]
 
-        if action == 'menu':
-            return self.view.show_menu()
+        if   action == 'menu'       : return self.view.show_menu()
 
-        elif action == 'go':
-            if len(command) <= 2:
-                return "go where? (north, south, east, west)"
-            
-            direction = word[1]
-            return self.move_player(direction)
+        elif action == 'go'         : return "go where? (north, south, east, west)" if len(command) <= 2 else self.move_player(word[1])
         
-        elif action == 'inventory':
-            return self.view.show_inventory(self.player.inventory)
+        elif action == 'inventory'  : return self.view.show_inventory(self.player.inventory, False)
         
-        elif action == 'look':
-            return self.view.show_around()
+        elif action == 'look'       : return self.view.show_around(self.player.current_room)
         
-        elif action == 'take':
-            return self.view.show_take_item(self.player.current_room.items)
+        elif action == 'take'       : return "take what? (item name)" if len(command) <= 4 else self.take_item(" ".join(word[1:]))
 
-        elif action == 'exit':
-            return self.view.show_exit_screen(self.player_name)
+        elif action == 'exit'       : return self.view.show_exit_screen(self.player_name)
         
-        return 'unknow command'
+        else                        : return 'unknow command'
 
     def move_player(self, direction):
         current_room = self.player.current_room
