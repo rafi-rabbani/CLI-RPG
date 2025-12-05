@@ -119,16 +119,20 @@ class ConsoleView:
         text_enter = 'Press [ENTER] to Start....'
         self.wait_for_enter(text_enter, 15)
 
-    def show_inventory(self, inventory):
-        items = []
+    def show_inventory(self, inventory, status=True):
+        if status:
+            items = []
 
-        if not inventory.list_item():
-            return "empty"
-        
-        for item in inventory.list_item():
-            items.append(item.name.upper())
+            if not inventory.list_item():
+                return "empty"
+            
+            for item in inventory.list_item():
+                items.append(item.name.upper())
 
-        return items
+            return items
+        else:
+            return "\n".join(str(item) for item in inventory.list_item())
+
 
     def show_status_player(self, player):
         print('='* self.width_console)
