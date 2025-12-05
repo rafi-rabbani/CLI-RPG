@@ -10,6 +10,9 @@ class Room:
     def add_item(self, item):
         self.items.append(item)
 
+    def remove_item(self, item):
+        self.items.remove(item)
+
     def add_monster(self, monster):
         self.monsters.append(monster)
 
@@ -19,6 +22,10 @@ class Room:
     def locked_connects(self, direction, key_name):
         if direction in self.exits:
             self.locked_exit[direction] = key_name
+
+    def __str__(self) : return f"{self.name}"
+
+    def __repr__(self): return self.__str__()
 
 class World:
     def __init__(self):
