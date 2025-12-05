@@ -148,3 +148,15 @@ class GameEngine:
         else:
             return "you can't go that away"
         
+    def take_item(self, item_name):
+        current_room = self.player.current_room
+
+        for item in current_room.items:
+            if item.name.lower() == item_name:
+                self.player.collect_item(item)
+                current_room.remove_item(item)
+                return f"item {item.name.title()} was successfully saved in inventory"
+            
+        return "item not found"
+     
+    def locked_room(self, direction):
