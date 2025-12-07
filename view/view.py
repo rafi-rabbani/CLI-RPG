@@ -198,5 +198,35 @@ class ConsoleView:
         text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 17)
 
+    def show_status_combat(self, player, monster, damage_player="", damage_monster=""):
+        self.clear_screen()
+
+        print("=" * self.width_console)
+        print(" " * self.padding_center("COMBAT MODE") + "COMBAT MODE")
+        print("=" * self.width_console)
+
+        name = f"Name   : {player.name.title()}"
+        health = f"HP     : ({player.health}/{player.max_hp}) {damage_monster}"
+        damage = f"Damage : {player.damage}"
+
+        monster_name = f"{monster.name.title()} :    Name"
+        monster_health = f"{damage_player} ({monster.health}/{monster.max_hp}) :     HP"
+        monster_damage = f"{monster.damage} : Damage"
+
+        print()
+        print(name, end="")
+        print(" " * (self.width_console - (len(name) + len(monster_name))), end="")
+        print(monster_name)
+        print()
+        print(health, end="")
+        print(" " * (self.width_console - (len(health) + len(monster_health))), end="")
+        print(monster_health)
+        print()
+        print(damage, end="")
+        print(" " * (self.width_console - (len(damage) + len(monster_damage))), end="")
+        print(monster_damage)
+        print()
+        print("=" * self.width_console)
+
         self.wait_for_enter(text_enter, 15)
 
