@@ -2,6 +2,7 @@ from view import ConsoleView
 from models import World, Item, Player, Monster
 from config import PLAYER
 
+
 class GameEngine:
     def __init__(self):
         self.view = ConsoleView()
@@ -11,20 +12,20 @@ class GameEngine:
 
     def rules_game(self):
         rules = [
-        "OBJECTIVE\t: Explore the Murim World and survive all encounters.",
-        "NAVIGATION\t: Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move between locations.",
-        "STATE CHANGE\t: Encountering a monster immediately initiates COMBAT mode.",
-        "TURN ORDER\t: The Creature with the LOWEST current HP attacks FIRST in each round.",
-        "DEFEAT\t\t: Health (HP) reaching 0 or less results in permanent defeat.",
-        "PERSISTENCE\t: Use 'SAVE' to engrave your progress to disk at any time.",
-        "EXIT\t\t: Use 'EXIT' or 'QUIT' to stop the game."
+            "OBJECTIVE\t: Explore the Murim World and survive all encounters.",
+            "NAVIGATION\t: Use cardinal directions (NORTH, SOUTH, EAST, WEST) to move between locations.",
+            "STATE CHANGE\t: Encountering a monster immediately initiates COMBAT mode.",
+            "TURN ORDER\t: The Creature with the LOWEST current HP attacks FIRST in each round.",
+            "DEFEAT\t\t: Health (HP) reaching 0 or less results in permanent defeat.",
+            "PERSISTENCE\t: Use 'SAVE' to engrave your progress to disk at any time.",
+            "EXIT\t\t: Use 'EXIT' or 'QUIT' to stop the game.",
         ]
         return rules
-    
+ 
     def roles(self):
         role = PLAYER.keys()
         return role
-    
+
     def populate_world(self):
         cloud = self.world.starting_room
         orthodox = self.world.rooms["center"]
@@ -42,21 +43,42 @@ class GameEngine:
         unorthodox.add_monster(minotaur)
         demonic.add_monster(dragon)
 
-        orthodox_key    = Item("Orthodox Key"    , f"the key used to open the location of {orthodox.name}")
-        ice_key         = Item("Ice Key"         , f"the key used to open the location of {ice.name}")
-        unorthodox_key  = Item("Unorthodox Key"  , f"the key used to open the location of {unorthodox.name}")
-        demonic_key     = Item("Demonic Key"     , f"the key used to open the location of {demonic.name}")
+        orthodox_key = Item(
+            "Orthodox Key", f"the key used to open the location of {orthodox.name}"
+        )
+        ice_key = Item("Ice Key", f"the key used to open the location of {ice.name}")
+        unorthodox_key = Item(
+            "Unorthodox Key", f"the key used to open the location of {unorthodox.name}"
+        )
+        demonic_key = Item(
+            "Demonic Key", f"the key used to open the location of {demonic.name}"
+        )
 
         cloud.add_item(orthodox_key)
         orthodox.add_item(ice_key)
         ice.add_item(unorthodox_key)
         unorthodox.add_item(demonic_key)
 
-        sword = Item("Worn Iron Sword", "A basic iron sword, showing signs of wear from countless battles. It's a reliable weapon for any adventurer.")
-        saber = Item("Jade Green Saber", "A finely crafted saber with a jade green blade, known for its sharpness and elegance.")
-        dagger = Item("Frostbone Dagger", "A dagger forged from the bones of ice creatures, it emanates a chilling aura that can freeze anything it touches.")
-        greatsword = Item("Bloodthirsty Greatsword", "A massive greatsword that thirsts for the blood of its enemies, radiating a menacing aura.")
-        scythe = Item("Demon God's Scythe", "The legendary weapon of the First Heavenly Demon. It radiates an overwhelming aura of dominance. Holding it makes you feel like the absolute ruler of the martial world.")
+        sword = Item(
+            "Worn Iron Sword",
+            "A basic iron sword, showing signs of wear from countless battles. It's a reliable weapon for any adventurer.",
+        )
+        saber = Item(
+            "Jade Green Saber",
+            "A finely crafted saber with a jade green blade, known for its sharpness and elegance.",
+        )
+        dagger = Item(
+            "Frostbone Dagger",
+            "A dagger forged from the bones of ice creatures, it emanates a chilling aura that can freeze anything it touches.",
+        )
+        greatsword = Item(
+            "Bloodthirsty Greatsword",
+            "A massive greatsword that thirsts for the blood of its enemies, radiating a menacing aura.",
+        )
+        scythe = Item(
+            "Demon God's Scythe",
+            "The legendary weapon of the First Heavenly Demon. It radiates an overwhelming aura of dominance. Holding it makes you feel like the absolute ruler of the martial world.",
+        )
 
         cloud.add_item(sword)
         orthodox.add_item(saber)
@@ -83,45 +105,62 @@ class GameEngine:
         self.view.show_current_room(self.world.starting_room)
 
         match self.player_role:
-            case "fighter": self.player = Player.fighter(self.player_name)
-            case "archer" : self.player = Player.archer(self.player_name)
-            case "tank"   : self.player = Player.tank(self.player_name)
+            case "fighter":
+                self.player = Player.fighter(self.player_name)
+            case "archer":
+                self.player = Player.archer(self.player_name)
+            case "tank":
+                self.player = Player.tank(self.player_name)
 
         self.player.current_room = self.world.starting_room
 
         self.loop_game()
 
     def loop_game(self):
-        last_message = ''
-        command = ''
+        last_message = ""
+        command = ""
 
         while self.is_running:
-            if command == 'exit':
+            if command == "exit":
                 break
 
             self.view.show_game_screen(command, last_message, self.player)
             command = self.view.get_player_command()
-            
-            last_message = self.process_command(command)
 
+            last_message = self.process_command(command)
 
     def process_command(self, command):
         word = command.split()
         action = word[0]
 
-        if   action == 'menu'       : return self.view.show_menu()
+        if action == "menu":
+            return self.view.show_menu()
 
-        elif action == 'go'         : return "go where? (north, south, east, west)" if len(command) <= 2 else self.move_player(word[1])
-        
-        elif action == 'inventory'  : return self.view.show_inventory(self.player.inventory, False)
-        
-        elif action == 'look'       : return self.view.show_around(self.player.current_room)
-        
-        elif action == 'take'       : return "take what? (item name)" if len(command) <= 4 else self.take_item(" ".join(word[1:]))
+        elif action == "go":
+            return (
+                "go where? (north, south, east, west)"
+                if len(command) <= 2
+                else self.move_player(word[1])
+            )
 
-        elif action == 'exit'       : return self.view.show_exit_screen(self.player_name)
-        
-        else                        : return 'unknow command'
+        elif action == "inventory":
+            return self.view.show_inventory(self.player.inventory, False)
+
+        elif action == "look":
+            return self.view.show_around(self.player.current_room)
+
+        elif action == "take":
+            return (
+                "take what? (item name)"
+                if len(command) <= 4
+                else self.take_item(" ".join(word[1:]))
+            )
+
+        elif action == "exit":
+            return self.view.show_exit_screen(self.player_name)
+
+        else:
+            return "unknown command"
 
     def move_player(self, direction):
         current_room = self.player.current_room
@@ -146,7 +185,7 @@ class GameEngine:
 
         else:
             return "you can't go that away"
-        
+
     def take_item(self, item_name):
         current_room = self.player.current_room
 
@@ -155,9 +194,9 @@ class GameEngine:
                 self.player.collect_item(item)
                 current_room.remove_item(item)
                 return f"item {item.name.title()} was successfully saved in inventory"
-            
+
         return "item not found"
-     
+
     def locked_room(self, direction):
         current_room = self.player.current_room
         inventory = self.player.inventory
