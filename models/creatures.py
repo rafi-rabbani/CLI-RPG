@@ -35,7 +35,7 @@ class Creature(ABC):
 
     def __str__(self):
         if self.health > 0:
-            return f"Name\t\t: {self.name.upper()}\n\nHP\t\t: ({self.health}/{self.max_hp})\n\nDamage\t\t: {self.damage}"
+            return f"Name\t\t: {self.name.title()}\n\nHP\t\t: ({self.health}/{self.max_hp})\n\nDamage\t\t: {self.damage}"
         else:
             return f"{self.name} is DEAD"
 
