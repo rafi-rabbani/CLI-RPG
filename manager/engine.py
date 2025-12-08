@@ -103,6 +103,11 @@ class GameEngine:
         while self.is_running:
             if command == "exit":
                 break
+            elif last_message == "defeat":
+                break
+            elif last_message == "end":
+                self.view.show_end_game(self.player_name)
+                break
 
             self.view.show_game_screen(command, last_message, self.player)
             command = self.view.get_player_command()
@@ -158,16 +163,19 @@ class GameEngine:
             if next_room.monsters:
                 fight = self.start_fight()
 
-            if fight == "flee":
-                self.player.current_room = previous_room
-                self.view.show_current_room(previous_room)
-                return f"you returned to {previous_room.name}"
+                if fight == "flee":
+                    self.player.current_room = previous_room
+                    self.view.show_current_room(previous_room)
+                    return f"you returned to {previous_room.name}"
 
-            elif fight == "victory":
-                message = " and defeated the monster"
+                elif fight == "victory":
+                    message = " and defeated the monster"
 
-            elif fight == "defeat":
-                return "defeat"
+                elif fight == "defeat":
+                    return "defeat"
+                
+                elif fight == "end":
+                    return "end"
 
             if opened is True:
                 return f"you successfully opened location of {next_room.name}{message}"
