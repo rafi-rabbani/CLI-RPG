@@ -59,32 +59,12 @@ class GameEngine:
         ice.add_item(unorthodox_key)
         unorthodox.add_item(demonic_key)
 
-        sword = Item(
-            "Worn Iron Sword",
-            "A basic iron sword, showing signs of wear from countless battles. It's a reliable weapon for any adventurer.",
-        )
-        saber = Item(
-            "Jade Green Saber",
-            "A finely crafted saber with a jade green blade, known for its sharpness and elegance.",
-        )
-        dagger = Item(
-            "Frostbone Dagger",
-            "A dagger forged from the bones of ice creatures, it emanates a chilling aura that can freeze anything it touches.",
-        )
-        greatsword = Item(
-            "Bloodthirsty Greatsword",
-            "A massive greatsword that thirsts for the blood of its enemies, radiating a menacing aura.",
-        )
-        scythe = Item(
-            "Demon God's Scythe",
-            "The legendary weapon of the First Heavenly Demon. It radiates an overwhelming aura of dominance. Holding it makes you feel like the absolute ruler of the martial world.",
-        )
+        potion = Item("Potion", "A God-Given Liquid that Can Provide Full Regeneration")
 
-        cloud.add_item(sword)
-        orthodox.add_item(saber)
-        ice.add_item(dagger)
-        unorthodox.add_item(greatsword)
-        demonic.add_item(scythe)
+        orthodox.add_item(potion)
+        ice.add_item(potion)
+        unorthodox.add_item(potion)
+        demonic.add_item(potion)
 
         cloud.locked_connects("west", orthodox_key.name)
         orthodox.locked_connects("north", ice_key.name)
@@ -143,18 +123,15 @@ class GameEngine:
                 else self.move_player(word[1])
             )
 
-        elif action == "inventory":
-            return self.view.show_inventory(self.player.inventory, False)
+        elif action == "use":
+            if len(command) <= 3:
+                return "use what? (potion)"
 
-        elif action == "look":
-            return self.view.show_around(self.player.current_room)
+            if word[1] == "potion":
+                heal = self.heal_player()
 
-        elif action == "take":
-            return (
-                "take what? (item name)"
-                if len(command) <= 4
-                else self.take_item(" ".join(word[1:]))
-            )
+                return "you have used a potion and your health has been fully restored" if heal else "you don't have a potion"
+
 
         elif action == "exit":
             return self.view.show_exit_screen(self.player_name)
@@ -211,6 +188,15 @@ class GameEngine:
                 return f"item {item.name.title()} was successfully saved in inventory"
 
         return "item not found"
+
+    def heal_player(self):
+        inventory = self.player.inventory
+        for item in inventory.list_item():
+            if item.name.lower() == "potion":
+                self.player.heal_creature(self.player.max_hp)
+                self.player.remove_item(item)
+                return True
+        return False
 
     def locked_room(self, direction):
         current_room = self.player.current_room
