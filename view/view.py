@@ -279,15 +279,38 @@ class ConsoleView:
         text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 15)
 
-    def show_victory_screen(self, name, monster):
+    def show_victory_screen(self, name, monster, gift_health, gift_damage):
         self.clear_screen()
 
-        print("\n" * 20)
+        print("\n" * 18)
         self.typing_slow(self.space_text(name).upper())
         print()
         self.typing_slow(
             self.space_text(f"you successfully defeated the {monster.name}").upper()
         )
+        print("\n")
+        self.typing_slow(self.space_text(f"[MAX HP: {gift_health}++]"))
+        print()
+        self.typing_slow(self.space_text(f"[DAMAGE: {gift_damage}++]"))
 
         text_enter = "Press [ENTER] to Start...."
-        self.wait_for_enter(text_enter, 15)
+        self.wait_for_enter(text_enter, 12)
+
+    def show_end_game(self, name):
+        self.clear_screen()
+
+        print("\n" * 20)
+        self.typing_slow(self.space_text(f"[congratulation {name}!!!]").upper())
+        print()
+        self.typing_slow(
+            self.space_text(
+                "you have successfully conquered the world of Murim"
+            ).upper()
+        )
+        print()
+        self.typing_slow(
+            self.space_text("now you are the ruler of the entire land of Murim").upper()
+        )
+
+        text_enter = "Press [ENTER] to Start...."
+        self.wait_for_enter(text_enter, 13)
