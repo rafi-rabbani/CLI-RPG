@@ -145,19 +145,19 @@ class Monster(Creature):
 
     @classmethod
     def dragon(cls):
-        return cls(*list(config.MONSTERS["DRAGON"].values()))
+        return cls(*list(config.MONSTERS["DRAGON"].values())[:3])
 
     @classmethod
     def goblin(cls):
-        return cls(*list(config.MONSTERS["GOBLIN"].values()))
+        return cls(*list(config.MONSTERS["GOBLIN"].values())[:3])
 
     @classmethod
     def skeleton(cls):
-        return cls(*list(config.MONSTERS["SKELETON"].values()))
+        return cls(*list(config.MONSTERS["SKELETON"].values())[:3])
 
     @classmethod
     def minotaur(cls):
-        return cls(*list(config.MONSTERS["MINOTAUR"].values()))
+        return cls(*list(config.MONSTERS["MINOTAUR"].values())[:3])
 
     def __str__(self):
         return super().__str__()
