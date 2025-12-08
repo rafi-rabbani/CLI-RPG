@@ -15,7 +15,9 @@ class Creature(ABC):
         pass
 
     @abstractmethod
-    def take_damage(self, damage):
+
+    @abstractmethod
+    def heal_creature(self, amount):
         pass
 
     @property
@@ -56,7 +58,11 @@ class Player(Creature):
             if self.health == 0:
                 return f"{self.name} is DEAD"
             else:
-                return f"{self.name} attacks {target} with {self.damage} damage"
+    def heal_creature(self, amount):
+        if amount:
+            self.health += amount
+            if self.health > self.max_hp:
+                self.health = self.max_hp
 
     def collect_item(self, item):
         self.inventory.collect_item(item)
@@ -97,7 +103,12 @@ class Monster(Creature):
             if self.health == 0:
                 return f"{self.name} is DEAD"
             else:
-                return f"{self.name} attacks {target} with {self.damage} damage"
+
+    def heal_creature(self, amount):
+        if amount:
+            self.health += amount
+            if self.health > self.max_hp:
+                self.health = self.max_hp
 
     @classmethod
     def dragon(cls):
