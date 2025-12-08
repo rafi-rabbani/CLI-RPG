@@ -103,9 +103,32 @@ class Player(Creature):
 class Monster(Creature):
     def __init__(self, name, max_hp, damage):
         super().__init__(name, max_hp, damage)
+        self.heal = True
+        self.berserk = True
+
+    def act(self, target):
+        monster = config.MONSTERS[self.name.upper()]
+
+        if self.health < self.max_hp * (20 / 100) and self.heal:
+            heal = int(self.max_hp * monster["HEAL"])
+            self.heal_creature(heal)
+            self.heal = False
+            return f"{self.name} healed himself", f"(+{heal})"
+
+        elif target.health < target.max_hp * (30 / 100) and self.berserk:
+            damage = int(self.damage * monster["BERSERK"])
+            self.berserk = False
+            return self.berserk_attack(target, damage)
+
+        else:
+            return self.attack(target)
 
     def attack(self, target):
         return target.take_damage(self.damage, self.name)
+
+    def berserk_attack(self, target, damage):
+        message = target.take_damage(damage, self.name)
+        return f"CRITICAL HIT!! {message[0]}", f"(-{damage})"
 
     def take_damage(self, damage, target):
         if damage >= 0:
