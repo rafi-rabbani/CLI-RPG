@@ -213,19 +213,35 @@ class ConsoleView:
         text_enter = "Press [ENTER] to Start...."
         self.wait_for_enter(text_enter, 17)
 
-    def show_status_combat(self, player, monster, damage_player="", damage_monster=""):
+    def show_status_combat(self, player, monster, creature, message):
         self.clear_screen()
+
+        message_player = ""
+        message_monster = ""
+
+        if creature == "player":
+            if message[1] == "+":
+                message_player = f"{message}"
+            else:
+                message_monster = f"{message}"
+        elif creature == "monster":
+            if message[1] == "+":
+                message_monster = f"{message}"
+            else:
+                message_player = f"{message}"
 
         print("=" * self.width_console)
         print(" " * self.padding_center("COMBAT MODE") + "COMBAT MODE")
         print("=" * self.width_console)
 
         name = f"Name   : {player.name.title()}"
-        health = f"HP     : ({player.health}/{player.max_hp}) {damage_monster}"
+        health = f"HP     : ({player.health}/{player.max_hp}) {message_player}"
         damage = f"Damage : {player.damage}"
 
         monster_name = f"{monster.name.title()} :    Name"
-        monster_health = f"{damage_player} ({monster.health}/{monster.max_hp}) :     HP"
+        monster_health = (
+            f"{message_monster} ({monster.health}/{monster.max_hp}) :     HP"
+        )
         monster_damage = f"{monster.damage} : Damage"
 
         print()
@@ -244,11 +260,11 @@ class ConsoleView:
         print("=" * self.width_console)
 
     def show_combat_screen(
-        self, player, monster, message="", damage_player="", damage_monster=""
+        self, player, monster, creature="", message="", message_status=""
     ):
-        self.show_status_combat(player, monster, damage_player, damage_monster)
+        self.show_status_combat(player, monster, creature, message_status)
 
-        if damage_monster or damage_player != "":
+        if message != "":
             print()
             self.typing_slow(message, 0.01)
 
