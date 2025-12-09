@@ -73,6 +73,10 @@ class GameEngine:
         orthodox.locked_connects("south", demonic_key.name)
 
     def start_game(self):
+        if os.path.exists(DB_NAME):
+            self.load_game()
+            return
+
         self.world.generate_world()
         self.populate_world()
 
@@ -316,3 +320,52 @@ class GameEngine:
         except:
             return "[error saving game]"
 
+    def load_game(self):
+        try:
+            with open(DB_NAME, "r") as file:
+                data = json.load(file)
+                
+                player = data["player"]
+                self.player = Player(*list(player.values())[:3])
+                self.player.health = player["health"]
+                
+                self.world.generate_world()
+                
+                for room in self.world.rooms.values():
+                    if room.name == player["room"]:
+                        self.player.current_room = room
+                        break
+                        
+                for data_item in player["inventory"]:
+                    item = Item(*list(data_item.values()))
+                    self.player.inventory.collect_item(item)
+                    
+                world_rooms = data["world_rooms"]
+
+                for key, room in self.world.rooms.items():
+                    if key in world_rooms:
+                        data_room = world_rooms[key]
+
+                        room.items.clear()
+                        
+                        for data_item in data_room["items"]:
+                            item = Item(*list(data_item.values()))
+                            room.add_item(item)
+                            
+                        for data_monster in data_room["monsters"]:
+                            monster = Monster(*list(data_monster.values())[:3])
+                            monster.health = data_monster["health"]
+                            monster.heal = data_monster["heal"]
+                            monster.berserk = data_monster["berserk"]
+                            room.add_monster(monster)
+                            
+                        room.locked_exit = data_room["locked_exit"]
+                            
+                self.view.show_load_screen(self.player.name)
+                self.view.show_current_room(self.player.current_room)
+                self.loop_game()
+
+        except Exception as e:
+            self.view.show_error_screen(f"[{e}]")
+            os.remove(DB_NAME)
+            self.start_game()
