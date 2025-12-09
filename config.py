@@ -1,6 +1,5 @@
 # General Constant
-SAVE_FILE_NAME = "data.json"
-INITIAL_ROOM_KEY = "cloud"
+DB_NAME = "data.json"
 
 # Data Player
 PLAYER = {
