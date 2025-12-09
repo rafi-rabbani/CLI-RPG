@@ -1,6 +1,8 @@
 from view import ConsoleView
 from models import World, Item, Player, Monster
-from config import PLAYER
+from config import PLAYER, DB_NAME
+import json
+import os
 
 
 class GameEngine:
@@ -151,7 +153,8 @@ class GameEngine:
                 return self.view.show_inventory(self.player.inventory, False)
 
             elif action == "exit":
-                return self.view.show_exit_screen(self.player_name)
+                self.save_game()
+                return self.view.show_exit_screen(self.player.name)
 
             else:
                 return "unknown command"
@@ -296,3 +299,20 @@ class GameEngine:
         gift_health, gift_damage = self.player.level_up(monster)
 
         return gift_health, gift_damage
+
+    def save_game(self):
+        data = {
+            "player" : self.player.to_dict(),
+            "world_rooms" : {}
+        }
+
+        for key, room in self.world.rooms.items():
+            data["world_rooms"][key] = room.to_dict()
+
+        try:
+            with open(DB_NAME, "w") as file:
+                json.dump(data, file, indent=4)
+                return "[game successfully saved]"
+        except:
+            return "[error saving game]"
+
