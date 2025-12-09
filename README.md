@@ -97,4 +97,4 @@ Distributed under the MIT License.
 
 -----
 
-*by Fizz*
+*Created by Fizz*
