@@ -119,6 +119,17 @@ class GameEngine:
 
             last_message = self.process_command(command)
 
+            if command == "exit":
+                self.is_running = False
+                
+            elif last_message == "defeat":
+                os.remove(DB_NAME)
+                self.is_running = False
+                
+            elif last_message == "end":
+                self.view.show_end_game(self.player.name)
+                self.is_running = False
+
     def process_command(self, command):
         try:
             word = command.split()
