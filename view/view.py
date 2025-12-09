@@ -103,7 +103,7 @@ class ConsoleView:
             self.typing_slow(f"{index+1}. {rule}\n", 0.01, False)
 
         text_enter = "Press [ENTER] to Next...."
-        self.wait_for_enter(text_enter, 9)
+        self.wait_for_enter(text_enter, 13)
 
     def show_start_screen(self, name):
         self.clear_screen()
