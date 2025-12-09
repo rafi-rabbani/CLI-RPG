@@ -39,8 +39,8 @@ MONSTERS = {
     },
     "DRAGON": {
         "NAME": "Dragon",
-        "HP": 9999,
-        "DAMAGE": 999,
+        "HP": 9000,
+        "DAMAGE": 900,
         "HEAL": 0.25,
         "BERSERK": 2.50,
     },
