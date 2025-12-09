@@ -98,5 +98,3 @@ Distributed under the MIT License.
 -----
 
 *by Fizz*
-
-```
