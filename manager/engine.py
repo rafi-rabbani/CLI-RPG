@@ -105,14 +105,6 @@ class GameEngine:
         command = ""
 
         while self.is_running:
-            if command == "exit":
-                break
-            elif last_message == "defeat":
-                break
-            elif last_message == "end":
-                self.view.show_end_game(self.player_name)
-                break
-
             self.view.show_game_screen(command, last_message, self.player)
             command = self.view.get_player_command()
 
@@ -286,7 +278,7 @@ class GameEngine:
                 if monster.name == "DRAGON":
                     return "end"
                 gift_health, gift_damage = self.gift_monster(monster)
-                self.view.show_victory_screen(self.player_name, monster, gift_health, gift_damage)
+                self.view.show_victory_screen(self.player.name, monster, gift_health, gift_damage)
                 del current_room.monsters[0]
                 return "victory"
 
@@ -306,7 +298,7 @@ class GameEngine:
             self.view.wait(2)
 
             if player.health <= 0:
-                self.view.show_defeat_screen(self.player_name)
+                self.view.show_defeat_screen(self.player.name)
                 return "defeat"
             
     def gift_monster(self, monster):
