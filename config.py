@@ -34,7 +34,7 @@ MONSTERS = {
         "DAMAGE": 300,
         "HEAL": 0.20,
         "BERSERK": 2.00,
-        "GIFT_HEALTH": 9500,
+        "GIFT_HEALTH": 9860,
         "GIFT_DAMAGE": 700,
     },
     "DRAGON": {
